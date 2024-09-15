@@ -3,11 +3,16 @@ export default class Inbox {
     this.items = []
   }
 
-  addItem(item, date = creationDate()) {
+  addItem(item) {
+    const date = creationDate()
     this.items.push({item, date})
+  }
+
+  removeItem(item) {
+    this.items = this.items.filter(i => i.item !== item)
   }
 }
 
 function creationDate() {
-  return Date.now()
+  return new Date()
 }
