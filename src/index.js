@@ -1,8 +1,8 @@
-import Inbox from './inbox.js'
 import Capture from './capture.js'
-
-const inbox = new Inbox()
-window.inbox = inbox
+import NextAction from './next-action.js'
+import Waiting from './waiting.js'
+import Reference from "./reference.js"
+import Someday from "./someday.js"
 
 const capture = new Capture()
 window.capture = capture

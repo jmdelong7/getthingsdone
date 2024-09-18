@@ -21,3 +21,6 @@ Capture:
   - First screen shown to user.
   - Used as the starting point for most items.
   - Most general.
+
+- Need to be able to stringify each list item with valid key name.
+- Need to be able to maintain list order for each type of list.
