@@ -10,12 +10,13 @@ class List {
     this.list.push(item)
   }
 
-  removeItem(id) {
-    this.list.filter(item => item.id !== id)
-  }
-
   getItemIndex(id) {
     return this.list.findIndex(item => item.id === id)
+  }
+
+  removeItem(id) {
+    const index = this.getItemIndex(id)
+    this.list.splice(index, 1)
   }
 
   moveItemToDifferentList(id, list) {
