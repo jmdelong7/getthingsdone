@@ -1,9 +1,12 @@
+import Item from "./item.js"
+
 class List {
   constructor() {
     this.list = []
   }
 
-  addItem(item) {
+  addItem(toDo) {
+    const item = new Item(toDo)
     this.list.push(item)
   }
 
