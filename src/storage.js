@@ -17,15 +17,16 @@ function storageAvailable(type) {
   }
 }
 
-if (!storageAvailable("localStorage")) {
-  console.log("localStorage not available")
-}
-
-function storeItemInLocalStorage(item) {
+function setLocalStorageItem(item) {
   if (storageAvailable("localStorage")) {
     const itemJson = JSON.stringify(item)
-    localStorage.setItem()
-  } else return
+    localStorage.setItem(item.id, itemJson)
+  } else return null
+}
 
+function removeLocalStorageItem(id) {
+  if (storageAvailable("localStorage")) {
+    localStorage.removeItem(id)
+  } else return null
 }
 
