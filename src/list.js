@@ -1,9 +1,9 @@
 import Item from "./item.js"
 
 export default class List {
-  constructor(name) {
-    this.name = name
+  constructor() {
     this.items = []
+    this.id = "list-" + crypto.randomUUID()
   }
 
   addItem(toDo) {

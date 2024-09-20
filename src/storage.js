@@ -1,54 +1,21 @@
-export default class SafeStorage {
-  constructor(storageType="localStorage") {
-    this.storage = window[storageType]
-    this.available = this.storageAvailable()
-  }
-  
-  storageAvailable() {
-    try {
-      const x = "__storage_test__";
-      this.storage.setItem(x, x);
-      this.storage.removeItem(x);
-      return true;
-    } catch (e) {
-      return (
-        e instanceof DOMException &&
-        e.name === "QuotaExceededError" &&
-        // acknowledge QuotaExceededError only if there's something already stored
-        this.storage &&
-        this.storage.length !== 0
-      );
-    }
+export default class Storage {
+  static storeList(list) {
+    localStorage.setItem(list.id, JSON.stringify(list))
   }
 
-  performIfAvailable(action) {
-    return this.available ? action() : null
+  static removeList(id) {
+    localStorage.removeItem(id)
   }
 
-  setStorageItem(key, item) {
-    return this.performIfAvailable(() => {
-      const itemJson = JSON.stringify(item)
-      this.storage.setItem(key, itemJson)
+  static updateStorage(...lists) {
+    const packagedLists = {}
+    let counter = 1
+    lists.forEach(list => {
+      let template = "list" + counter
+      packagedLists[template] = list
+      counter++
     })
+    
+    localStorage.setItem("app", JSON.stringify(packagedLists))
   }
-
-  getStorageItem(key) {
-    return this.performIfAvailable(() => {
-      return this.storage.getItem(key)
-    })
-  }
-
-  removeStorageItem(key) {
-    return this.performIfAvailable(() => {
-      this.storage.removeItem(key)
-    })
-  }
-
-  clearStorage() {
-    return this.performIfAvailable(() => {
-      this.storage.clear()
-    })
-  }
-
 }
-

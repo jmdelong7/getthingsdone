@@ -1,4 +1,5 @@
-import ListController from "./list"
+import Storage from "./storage.js"
+import List from "./list.js"
 
-const listController = new ListController()
-window.listController = listController
+window.List = List
+window.Storage = Storage
