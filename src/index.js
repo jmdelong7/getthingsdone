@@ -1,8 +1,4 @@
-import Capture from './capture.js'
-import NextAction from './next-action.js'
-import Waiting from './waiting.js'
-import Reference from "./reference.js"
-import Someday from "./someday.js"
+import ListController from "./list"
 
-const capture = new Capture()
-window.capture = capture
+const listController = new ListController()
+window.listController = listController

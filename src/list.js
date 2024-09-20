@@ -1,32 +1,33 @@
 import Item from "./item.js"
 
-class List {
-  constructor() {
-    this.list = []
+export default class List {
+  constructor(name) {
+    this.name = name
+    this.items = []
   }
 
   addItem(toDo) {
     const item = new Item(toDo)
-    this.list.push(item)
+    this.items.push(item)
   }
 
   getItemIndex(id) {
-    return this.list.findIndex(item => item.id === id)
+    return this.items.findIndex(item => item.id === id)
   }
 
   removeItem(id) {
     const index = this.getItemIndex(id)
-    this.list.splice(index, 1)
+    this.items.splice(index, 1)
   }
 
   moveItemToDifferentList(id, list) {
     const index = this.getItemIndex(id)
-    list.push(this.list[index])
+    list.push(this.items[index])
     this.removeItem(id)
   }
 
   changeItemPosition(id, position) {
     const index = this.getItemIndex(id)
-    this.list.splice(position, 0, this.list[index])
+    this.items.splice(position, 0, this.items[index])
   }
 }

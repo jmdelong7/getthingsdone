@@ -1,5 +1,5 @@
-export default class SafeLocalStorage {
-  constructor(storageType = "localStorage") {
+export default class SafeStorage {
+  constructor(storageType="localStorage") {
     this.storage = window[storageType]
     this.available = this.storageAvailable()
   }
