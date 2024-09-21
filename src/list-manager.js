@@ -14,18 +14,31 @@ export default class listManager {
     })
     return lists
   }
-  //remove list
-
-  //add item
-  //remove item
-  //edit item
-  //move item to different list
-  //change item position
-
 
   createList(name="") {
     const list = new List(undefined, undefined, name)
     this.lists.push(list)
     Storage.refreshStorage(...this.lists)
   }
+
+  #getListIndex(id) {
+    return this.lists.findIndex(list => list.id === id)
+  }
+
+  deleteList(id) {
+    const index = this.#getListIndex(id)
+    this.lists.splice(index, 1)
+    Storage.refreshStorage(...this.lists)
+  }
+
+  addItemToList(id, toDo) {
+    
+  }
+
+  //remove item
+  //edit item
+  //move item to different list
+  //change item position
+
+
 }
