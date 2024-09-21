@@ -7,7 +7,7 @@ export default class Storage {
     localStorage.removeItem(id)
   }
 
-  static updateStorage(...lists) {
+  static refreshStorage(...lists) {
     const packagedLists = {}
     let counter = 1
     lists.forEach(list => {
@@ -15,7 +15,19 @@ export default class Storage {
       packagedLists[template] = list
       counter++
     })
-    
     localStorage.setItem("app", JSON.stringify(packagedLists))
+  }
+
+  static getListsFromStorage() {
+    if (localStorage.length === 0) return []
+    const app = JSON.parse(localStorage.getItem("app"))
+    const properties = Object.getOwnPropertyNames(app)
+    const lists = []
+    properties.filter(prop => {
+      return prop.slice(0, 4) === "list"
+    }).forEach(li => {
+      lists.push(app[li])
+    })
+    return lists
   }
 }
