@@ -49,11 +49,10 @@ export default class listManager {
     const listFrom = this.lists[listFromIndex]
 
     const itemIndex = listFrom.getItemIndex(itemId)
-    const item = listFrom.slice(itemIndex, itemIndex + 1)[0]
+    const item = listFrom.items.slice(itemIndex, itemIndex + 1)[0]
 
     const listToIndex = this.getListIndex(listToId)
     const listTo = this.lists[listToIndex]
-    
     listTo.items.push(item)
     this.removeItemFromList(listFromId, itemId)
   }
@@ -63,11 +62,21 @@ export default class listManager {
     const list = this.lists[listIndex]
 
     const itemIndex = list.getItemIndex(itemId)
-    list[itemIndex].editToDo(edit)
+    const item = list.items[itemIndex]
+    item.toDo = edit
+    Storage.refreshStorage(...this.lists)
   }
   
   changeItemPositionInList(listId, itemId, position) {
-    
+    const listIndex = this.getListIndex(listId)
+    const list = this.lists[listIndex]
+
+    const itemIndex = list.getItemIndex(itemId)
+    const item = list.items[itemIndex]
+
+    list.items.splice(position, 0, item)
+    list.items.splice(itemIndex, 1)
+    Storage.refreshStorage(...this.lists)
   }
 
 }

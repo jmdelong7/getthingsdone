@@ -4,8 +4,4 @@ export default class Item {
     this.date = new Date
     this.id = "item-" + crypto.randomUUID()
   }
-
-  editToDo(edit) {
-    this.toDo = edit
-  }
 }
