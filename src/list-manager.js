@@ -75,7 +75,7 @@ export default class listManager {
     const item = list.items[itemIndex]
 
     list.items.splice(position, 0, item)
-    list.items.splice(itemIndex, 1)
+    list.items.splice(itemIndex + 1, 1)
     Storage.refreshStorage(...this.lists)
   }
 
