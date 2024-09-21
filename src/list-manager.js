@@ -21,24 +21,53 @@ export default class listManager {
     Storage.refreshStorage(...this.lists)
   }
 
-  #getListIndex(id) {
-    return this.lists.findIndex(list => list.id === id)
+  getListIndex(listId) {
+    return this.lists.findIndex(list => list.id === listId)
   }
 
-  deleteList(id) {
-    const index = this.#getListIndex(id)
-    this.lists.splice(index, 1)
+  deleteList(listId) {
+    const listIndex = this.getListIndex(listId)
+    this.lists.splice(listIndex, 1)
     Storage.refreshStorage(...this.lists)
   }
 
-  addItemToList(id, toDo) {
-    
+  addItemToList(listId, toDo) {
+    const listIndex = this.getListIndex(listId)
+    this.lists[listIndex].addItem(toDo)
+    Storage.refreshStorage(...this.lists)
   }
 
-  //remove item
-  //edit item
-  //move item to different list
-  //change item position
+  removeItemFromList(listId, itemId) {
+    const listIndex = this.getListIndex(listId)
+    const list = this.lists[listIndex]
+    list.removeItem(itemId)
+    Storage.refreshStorage(...this.lists)
+  }
 
+  moveItemBetweenLists(listFromId, listToId, itemId) {
+    const listFromIndex = this.getListIndex(listFromId)
+    const listFrom = this.lists[listFromIndex]
+
+    const itemIndex = listFrom.getItemIndex(itemId)
+    const item = listFrom.slice(itemIndex, itemIndex + 1)[0]
+
+    const listToIndex = this.getListIndex(listToId)
+    const listTo = this.lists[listToIndex]
+    
+    listTo.items.push(item)
+    this.removeItemFromList(listFromId, itemId)
+  }
+
+  editItemInList(listId, itemId, edit) {
+    const listIndex = this.getListIndex(listId)
+    const list = this.lists[listIndex]
+
+    const itemIndex = list.getItemIndex(itemId)
+    list[itemIndex].editToDo(edit)
+  }
+  
+  changeItemPositionInList(listId, itemId, position) {
+    
+  }
 
 }
