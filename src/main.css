@@ -163,3 +163,9 @@ body {
   font-size: var(--fs-400);
   font-family: var(--ff-primary);
 }
+
+/* More specific */
+
+li > * {
+  display: inline-block;
+}

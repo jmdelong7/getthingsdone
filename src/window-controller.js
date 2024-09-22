@@ -7,28 +7,29 @@ class WindowController {
   }
 }
 
-function addListOrItemListener(buttonId, inputId, listElementId) {
+export function addListOrItemListener(
+  buttonId, inputId, listElementId, template
+) {
   const button = document.getElementById(buttonId)
   const input = document.getElementById(inputId)
   const listElement = document.getElementById(listElementId)
+  
   button.addEventListener("click", () => {
     if (input.value === '') input.value = 'Untitled'
-    listElement.insertAdjacentHTML("afterbegin", `<li>${input.value}</li>`)
+    listElement.insertAdjacentHTML("afterbegin", template)
     input.value = ''
+
+    const removeButton = listElement.querySelector("button.remove")
+    removeButtonListener(removeButton)
   })
 }
 
-addListOrItemListener("add-list", "new-list-text", "lists")
-addListOrItemListener("add-item", "new-item-text", "items")
-
-
-function addListListener(buttonId, listManager, listName, listContainerId) {
-  const addListButton = document.getElementById(buttonId)
-  const listContainer = document.getElementById(listContainerId)
-  document.createElement()
-  const element = `<p class="list">${listName}</p>`
-  addListButton.addEventListener("click", () => {
-    listManager.createList(listName)
-    listContainer.insertAdjacentHTML(element)
+function removeButtonListener(buttonElement) {
+  buttonElement.addEventListener("click", () => {
+    buttonElement.parentElement.remove()
   })
 }
+
+function checkOffItem() {}
+
+
