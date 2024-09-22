@@ -6,5 +6,7 @@ module.exports = merge(common, {
   devtool: 'inline-source-map',
   devServer: {
     static: './dist',
+    watchFiles: ['src/**/*.html', 'src/**/*.css'], // Add this line
+    hot: true, // Enable Hot Module Replacement
   },
 });

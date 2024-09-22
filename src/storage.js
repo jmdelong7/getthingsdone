@@ -1,13 +1,8 @@
 export default class Storage {
-  static storeList(list) {
-    localStorage.setItem(list.id, JSON.stringify(list))
-  }
-
-  static removeList(id) {
-    localStorage.removeItem(id)
-  }
+  static isEnabled = false
 
   static refreshStorage(...lists) {
+    if (!isEnabled) return null
     const packagedLists = {}
     let counter = 1
     lists.forEach(list => {
@@ -20,6 +15,7 @@ export default class Storage {
 
   static getListsFromStorage() {
     if (localStorage.length === 0) return []
+    if (!isEnabled) return null
     const app = JSON.parse(localStorage.getItem("app"))
     const properties = Object.getOwnPropertyNames(app)
     const lists = []

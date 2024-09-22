@@ -6,41 +6,21 @@
   <meta name="description" contnet="Getting Things Done To Do List">
   <title>Get Things Done</title>
 </head>
-<body>
-  <div id="content-container">
-    <div id="nav-container-outer" class="outer">
-      <div id="nav-container-inner" class="inner">
-        <nav id="nav">
-          <button class="list">test list 1</button>
-          <button class="list">test list 2</button>
-          <button class="list">test list 3</button>
-          <button class="list">test list 4</button>
-          <button class="list">test list 5</button>
-        </nav>
-      </div>
+<body class="bg-secondary text-primary">
+  <div class="bg-primary main-section">
+    <div id="list-container">
+      <ul role="list" id="lists"></ul>
+      <button id="add-list" type="button">New List</button>
+      <label><input id="new-list-text" type="text" name="list"></label>
     </div>
-    <main>
-      <div id="list-container-outer" class="outer">
-        <div id="list-container-inner" class="inner">
-          <div id="list-title-container-outer" class="outer">
-            <div id="list-title-container-inner" class="inner">
-              <h1 id="list-title">Test Title</h1>
-            </div>
-          </div>
-          <div id="items-container-outer" class="outer">
-            <div id="items-container-inner" class="inner">
-              <ul id="items">
-                <li class="item">test item 1</li>
-                <li class="item">test item 2</li>
-                <li class="item">test item 3</li>
-                <li class="item">test item 4</li>
-                <li class="item">test item 5</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </main>
+    <div class="items-container">
+      <section id="items-section">
+        <ul role="list" id="items"></ul>
+      </section>
+      <button id="add-item" type="button">Add Item</button>
+      <label><input id="new-item-text" type="text" name="item"></label>
+    </div>
+
   </div>
 </body>
 </html>

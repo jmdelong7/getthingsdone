@@ -1,29 +1,33 @@
 const path = require('path');
- const HtmlWebpackPlugin = require('html-webpack-plugin');
- const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const webpack = require('webpack')
 
- module.exports = {
-   entry: {
-     app: './src/index.js',
-   },
-   plugins: [
-     new HtmlWebpackPlugin({
-       title: 'Production',
-       template: './src/index.html',
-       filename: 'index.html',
-       inject: 'body'
-     }),
-     new MiniCssExtractPlugin({
+module.exports = {
+  entry: {
+    app: './src/index.js',
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      title: 'Development', // Change this to 'Development' for clarity
+      template: './src/index.html',
+      filename: 'index.html',
+      inject: 'body'
+    }),
+    new MiniCssExtractPlugin({
       filename: '[name].css',
       chunkFilename: '[id].css'
     }),
-   ],
-   output: {
-     filename: '[name].bundle.js',
-     path: path.resolve(__dirname, 'dist'),
-     clean: true,
-   },
-   module: {
+    new webpack.ProvidePlugin({
+      Mousetrap: 'mousetrap'
+    })
+  ],
+  output: {
+    filename: '[name].bundle.js',
+    path: path.resolve(__dirname, 'dist'),
+    clean: true,
+  },
+  module: {
     rules: [
       {
         test: /\.html$/,
@@ -42,4 +46,4 @@ const path = require('path');
       },
     ],
   },
- };
+};
