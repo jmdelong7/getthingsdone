@@ -7,23 +7,6 @@ export default class UIManager {
     this.listInput = document.getElementById("new-list-text")
     this.items = document.getElementById("items")
     this.itemInput = document.getElementById("new-items-text")
-
-    this.listTemplat = `
-    <li>
-      <p>${this.getValue(this.listInput)}</p>
-      <button class="remove">X</button>
-    </li>
-  `
-
-    this.itemTemplate = `
-      <li> 
-        <label>
-          <input type="checkbox">
-          <p>${this.getValue(this.itemInput)}</p>
-        </label>
-        <button class="remove">X</button>
-      </li>
-      `
   }
 
   get listTemplate() {

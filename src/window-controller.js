@@ -5,6 +5,12 @@ class WindowController {
   constructor() {
     this.listManager = new ListManager()
   }
+
+  addListOrItemListener(button, input, ulElement) {
+    button.addEventListener("click", () => {
+      if (input.value === '') input.value = 'Untitled'
+    })
+  }
 }
 
 export function addListOrItemListener(
