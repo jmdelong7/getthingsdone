@@ -62,6 +62,20 @@ export class UIManager {
     this.addRemoveBtnListener(this.items)
   }
 
+  displayListItems(list) {
+    this.#clearItems()
+    list.items.forEach((item) => {
+      this.itemInput.value = item.toDo
+      this.addItem()
+    })
+  }
+  
+  #clearItems() {
+    for (let i = children.length; i > 0; i--) {
+      uiManager.items.lastChild.remove()
+    }
+  }
+
   #insertHTMLBeforeEnd(input, template, parent) {
     parent.insertAdjacentHTML("beforeend", template)
     input.value = ''
