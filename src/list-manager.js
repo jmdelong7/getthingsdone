@@ -10,13 +10,13 @@ export default class listManager {
     if (localStorage.length === 0) return []
     const listData = Storage.getListsFromStorage()
     const lists = listData.map(obj => {
-      return new List(obj.items, obj.id, obj.name)
+      return new List(obj.items, obj.id)
     })
     return lists
   }
 
-  createList(name="") {
-    const list = new List(undefined, undefined, name)
+  createList() {
+    const list = new List(undefined, undefined)
     this.lists.push(list)
     Storage.refreshStorage(...this.lists)
   }
@@ -42,19 +42,6 @@ export default class listManager {
     const list = this.lists[listIndex]
     list.removeItem(itemId)
     Storage.refreshStorage(...this.lists)
-  }
-
-  moveItemBetweenLists(listFromId, listToId, itemId) {
-    const listFromIndex = this.getListIndex(listFromId)
-    const listFrom = this.lists[listFromIndex]
-
-    const itemIndex = listFrom.getItemIndex(itemId)
-    const item = listFrom.items.slice(itemIndex, itemIndex + 1)[0]
-
-    const listToIndex = this.getListIndex(listToId)
-    const listTo = this.lists[listToIndex]
-    listTo.items.push(item)
-    this.removeItemFromList(listFromId, itemId)
   }
 
   editItemInList(listId, itemId, edit) {

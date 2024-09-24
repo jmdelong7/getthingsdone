@@ -96,7 +96,7 @@ svg {
 
   /* Text colors */
   --clr-text-100: #e0e0e0;
-  --clr-text-400: #b0b0b0;
+  --clr-text-400: #787878;
 
   /* Accent colors */
   --clr-accent-green: #00b894;
@@ -166,6 +166,10 @@ body {
 
 /* More specific */
 
-li > * {
+li * {
   display: inline-block;
+}
+
+input[type="checkbox"]:checked + p {
+  color: var(--clr-text-400)
 }
