@@ -8,7 +8,6 @@ window.List = List
 window.Storage = Storage
 window.ListManager = ListManager
 
-uiManager()
-
+window.uiManager = uiManager()
 // addListOrItemListener("add-list", "new-list-text", listTemplate)
 // addListOrItemListener("add-item", "new-item-text", itemTemplate)

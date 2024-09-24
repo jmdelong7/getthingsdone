@@ -27,7 +27,7 @@ export class UIManager {
     return `
       <li>
         <label>
-          <input type="checkbox">
+          <input type="checkbox" class="check">
           <p>${this.itemInput.value}</p>
         </label>
         <time datetime=""></time>
@@ -53,6 +53,8 @@ export class UIManager {
   addList() {
     this.#insertHTMLBeforeEnd(this.listInput, this.listTemplate, this.lists)
     this.addRemoveBtnListener(this.lists)
+    const id = this.listManager.createList()
+    return id
   }
 
   addItem() {

@@ -19,10 +19,16 @@ export default class listManager {
     const list = new List(undefined, undefined)
     this.lists.push(list)
     Storage.refreshStorage(...this.lists)
+
+    return list.id
   }
 
   getListIndex(listId) {
     return this.lists.findIndex(list => list.id === listId)
+  }
+
+  getListId(listIndex) {
+    return this.lists[listIndex].id
   }
 
   deleteList(listId) {
