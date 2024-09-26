@@ -19,7 +19,6 @@ export default class listManager {
     const list = new List(undefined, undefined)
     this.lists.push(list)
     Storage.refreshStorage(...this.lists)
-
     return list.id
   }
 
@@ -31,7 +30,7 @@ export default class listManager {
     return this.lists[listIndex].id
   }
 
-  deleteList(listId) {
+  removeList(listId) {
     const listIndex = this.getListIndex(listId)
     this.lists.splice(listIndex, 1)
     Storage.refreshStorage(...this.lists)
