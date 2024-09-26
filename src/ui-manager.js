@@ -58,7 +58,7 @@ export class UIManager {
     const addItemBtn = document.getElementById("add-item")
     addItemBtn.addEventListener("click", () => {
       this.#insertHTMLBeforeEnd(this.itemInput, this.itemTemplate, this.items)
-      this.listManager.addItemToList(listId, this.itemInput)
+      this.listManager.addItemToList(listId, this.itemInput.value)
       const li = this.items.lastElementChild
       this.removeItemBtnListener(li, listId)
     })
