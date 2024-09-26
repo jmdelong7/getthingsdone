@@ -24,7 +24,7 @@ export class UIManager {
     return `
       <li>
         <label>
-          <input type="checkbox" class="check">
+          <input type="checkbox" class="check" name="">
           <p>${this.itemInput.value}</p>
         </label>
         <time datetime=""></time>
@@ -57,8 +57,8 @@ export class UIManager {
   addItemBtnListener(listId) {
     const addItemBtn = document.getElementById("add-item")
     addItemBtn.addEventListener("click", () => {
-      this.#insertHTMLBeforeEnd(this.itemInput, this.itemTemplate, this.items)
       this.listManager.addItemToList(listId, this.itemInput.value)
+      this.#insertHTMLBeforeEnd(this.itemInput, this.itemTemplate, this.items)
       const li = this.items.lastElementChild
       this.removeItemBtnListener(li, listId)
     })
@@ -68,12 +68,12 @@ export class UIManager {
     this.items.innerHTML = ''
     const list = this.listManager.lists[this.listManager.getListIndex(listId)]
     list.items.forEach(item => {
-      this.itemInput = item.toDo
+      this.itemInput.value = item.toDo
       this.#insertHTMLBeforeEnd(this.itemInput, this.itemTemplate, this.items)
       const li = this.items.lastElementChild
       this.removeItemBtnListener(li, listId)
     })
-    this.itemInput = ''
+    this.itemInput.value = ''
   }
 
   addListBtnListener() {
