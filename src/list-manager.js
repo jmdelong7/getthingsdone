@@ -10,16 +10,16 @@ export default class listManager {
     if (localStorage.length === 0) return []
     const listData = Storage.getListsFromStorage()
     const lists = listData.map(obj => {
-      return new List(obj.items, obj.id)
+      return new List(obj.name, obj.items, obj.id)
     })
     return lists
   }
 
-  createList() {
-    const list = new List(undefined, undefined)
+  createList(name) {
+    const list = new List(name, undefined, undefined)
+    list.name = name
     this.lists.push(list)
     Storage.refreshStorage(...this.lists)
-    return list.id
   }
 
   getListIndex(listId) {

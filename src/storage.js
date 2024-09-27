@@ -1,5 +1,5 @@
 export default class Storage {
-  static isEnabled = false
+  static isEnabled = true
 
   static refreshStorage(...lists) {
     if (!Storage.isEnabled) return null

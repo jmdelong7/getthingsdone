@@ -1,7 +1,8 @@
 import Item from "./item.js"
 
 export default class List {
-  constructor(items=[], id="list-"+crypto.randomUUID()) {
+  constructor(name=null, items=[], id="list-"+crypto.randomUUID()) {
+    this.name = name
     this.items = items
     this.id = id
   }
