@@ -9,6 +9,8 @@ class UIManager {
     this.items = document.getElementById("items")
     this.itemInput = document.getElementById("new-item-text")
     this.addItemBtn = document.getElementById("add-item")
+
+    this.disableItemInput()
   }
 
   get listTemplate() {
@@ -35,6 +37,10 @@ class UIManager {
       `
   }
 
+  get listLength() {
+    return this.listManager.lists.length
+  }
+
   #insertHTMLBeforeEnd(template, parent) {
     parent.insertAdjacentHTML("beforeend", template)
   }
@@ -47,6 +53,9 @@ class UIManager {
       }
       li.remove()
       this.listManager.removeList(id)
+      if (this.listManager.lists.length === 0) {
+        this.disableItemInput()
+      }
     })
   }
 
@@ -88,6 +97,16 @@ class UIManager {
     ele.classList.add('selected')
   }
 
+  disableItemInput() {
+    if (this.listLength === 0) {
+      this.itemInput.setAttribute('disabled', '')
+    }
+  }
+  
+  enableItemInput() {
+    this.itemInput.removeAttribute('disabled')
+  }
+
   listListener(ele, listId) {
     ele.addEventListener("click", () => {
       this.displayItems(listId)
@@ -112,16 +131,12 @@ class UIManager {
       const listNameEle = this.lists.lastElementChild.querySelector("p")
       this.listListener(listNameEle, list.id)
       this.highlightSelected(listNameEle)
+      this.enableItemInput()
     })
   }
 
-  noListWarning() {
-    if (this.listManager.lists.length !== 0) return
-
-  }
-
   loadStorage() {
-    if (localStorage.length === 0) return
+    if (this.listManager.lists.length === 0) return
     const storedLists = this.listManager.lists
     storedLists.forEach(list => {
       this.listInput.value = list.name

@@ -70,5 +70,4 @@ export default class listManager {
     list.items.splice(itemIndex + 1, 1)
     Storage.refreshStorage(...this.lists)
   }
-
 }
