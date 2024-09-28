@@ -81,16 +81,19 @@ class UIManager {
     this.itemInput.value = ''
   }
 
+  highlightSelected(ele) {
+    this.lists.querySelectorAll('li > p').forEach(p => {
+      p.classList.remove('selected')
+    })
+    ele.classList.add('selected')
+  }
+
   listListener(ele, listId) {
     ele.addEventListener("click", () => {
       this.displayItems(listId)
       this.removeAllClickListeners(this.addItemBtn)
       this.addItemBtnListener(listId)
-
-      this.lists.querySelectorAll('li > p').forEach(p => {
-        p.classList.remove('selected')
-      })
-      ele.classList.add('selected')
+      this.highlightSelected(ele)
     })
   }
 
@@ -108,6 +111,7 @@ class UIManager {
       
       const listNameEle = this.lists.lastElementChild.querySelector("p")
       this.listListener(listNameEle, list.id)
+      this.highlightSelected(listNameEle)
     })
   }
 
@@ -129,6 +133,7 @@ class UIManager {
       this.addItemBtnListener(list.id)
       const listNameEle = this.lists.lastElementChild.querySelector("p")
       this.listListener(listNameEle, list.id)
+      this.highlightSelected(listNameEle)
     })
   }
 
