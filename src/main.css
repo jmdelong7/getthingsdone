@@ -173,3 +173,7 @@ li * {
 input[type="checkbox"]:checked + p {
   color: var(--clr-text-400)
 }
+
+.selected {
+  border: 1px solid var(--clr-accent-purple)
+}

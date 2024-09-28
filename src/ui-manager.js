@@ -42,6 +42,9 @@ class UIManager {
   removeListBtnListener(li, id) {
     const removeBtn = li.querySelector("button.remove")
     removeBtn.addEventListener("click", () => {
+      if (li.querySelector("p.selected") !== null) {
+        this.items.innerHTML = ''
+      }
       li.remove()
       this.listManager.removeList(id)
     })
@@ -79,12 +82,15 @@ class UIManager {
   }
 
   listListener(ele, listId) {
-    const index = this.listManager.getListIndex[listId]
-    const list = this.listManager.lists[index]
     ele.addEventListener("click", () => {
       this.displayItems(listId)
       this.removeAllClickListeners(this.addItemBtn)
       this.addItemBtnListener(listId)
+
+      this.lists.querySelectorAll('li > p').forEach(p => {
+        p.classList.remove('selected')
+      })
+      ele.classList.add('selected')
     })
   }
 
@@ -103,6 +109,11 @@ class UIManager {
       const listNameEle = this.lists.lastElementChild.querySelector("p")
       this.listListener(listNameEle, list.id)
     })
+  }
+
+  noListWarning() {
+    if (this.listManager.lists.length !== 0) return
+
   }
 
   loadStorage() {
@@ -126,6 +137,7 @@ class UIManager {
     button.parentNode.replaceChild(clone, button)
     this.addItemBtn = document.getElementById("add-item")
   }
+
 }
 
 export default function uiManager() {
