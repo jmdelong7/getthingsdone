@@ -10,14 +10,15 @@ export default class listManager {
     if (localStorage.length === 0) return []
     const listData = Storage.getListsFromStorage()
     const lists = listData.map(obj => {
-      return new List(obj.name, obj.items, obj.id)
+      return new List(obj.name, obj.selected, obj.items, obj.id)
     })
     return lists
   }
 
-  createList(name) {
-    const list = new List(name, undefined, undefined)
+  createList(name, selected) {
+    const list = new List(name, selected, undefined, undefined)
     list.name = name
+    list.selected = selected
     this.lists.push(list)
     Storage.refreshStorage(...this.lists)
   }
@@ -68,6 +69,17 @@ export default class listManager {
 
     list.items.splice(position, 0, item)
     list.items.splice(itemIndex + 1, 1)
+    Storage.refreshStorage(...this.lists)
+  }
+
+  toggleListSelected(listId) {
+    const listIndex = this.getListIndex(listId)
+    const list = this.lists[listIndex]
+
+    this.lists.forEach(li => {
+      li.selected = false
+    })
+    list.selected = true
     Storage.refreshStorage(...this.lists)
   }
 }

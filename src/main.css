@@ -177,3 +177,7 @@ input[type="checkbox"]:checked + p {
 .selected {
   border: 1px solid var(--clr-accent-purple)
 }
+
+#lists > li > p {
+  cursor: pointer;
+}

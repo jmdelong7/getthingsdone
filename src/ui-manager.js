@@ -100,11 +100,13 @@ class UIManager {
   disableItemInput() {
     if (this.listLength === 0) {
       this.itemInput.setAttribute('disabled', '')
+      this.addItemBtn.setAttribute('disabled', '')
     }
   }
   
   enableItemInput() {
     this.itemInput.removeAttribute('disabled')
+    this.addItemBtn.removeAttribute('disabled')
   }
 
   listListener(ele, listId) {
@@ -112,14 +114,15 @@ class UIManager {
       this.displayItems(listId)
       this.removeAllClickListeners(this.addItemBtn)
       this.addItemBtnListener(listId)
-      this.highlightSelected(ele)
+      this.highlightSelected(ele, listId)
+      this.listManager.toggleListSelected(listId)
     })
   }
 
   addListBtnListener() {
     this.addListBtn.addEventListener("click", () => {
       this.#insertHTMLBeforeEnd(this.listTemplate, this.lists)
-      this.listManager.createList(this.listInput.value)
+      this.listManager.createList(this.listInput.value, false)
       const list = this.listManager.lists[this.listManager.lists.length - 1]
       this.listInput.value = ''
       const li = this.lists.lastElementChild
@@ -147,9 +150,14 @@ class UIManager {
       this.displayItems(list.id)
       this.addItemBtnListener(list.id)
       const listNameEle = this.lists.lastElementChild.querySelector("p")
+      if (list.selected === true) this.highlightSelected(listNameEle)
       this.listListener(listNameEle, list.id)
-      this.highlightSelected(listNameEle)
     })
+
+    const lastSelected = storedLists.filter(list => list.selected === true)[0]
+    this.displayItems(lastSelected.id)
+    this.removeAllClickListeners(this.addItemBtn)
+    this.addItemBtnListener(lastSelected.id)
   }
 
   removeAllClickListeners(button) {
