@@ -67,16 +67,7 @@ class UIManager {
     })
   }
 
-  addItemBtnListener(listId) {
-    this.addItemBtn.addEventListener("click", () => {
-      this.listManager.addItemToList(listId, this.itemInput.value)
-      this.#insertHTMLBeforeEnd(this.itemTemplate, this.items)
-      this.itemInput.value = ''
-      const li = this.items.lastElementChild
-      this.removeItemBtnListener(li, listId)
-    })
-  }
-
+  
   displayItems(listId) {
     this.items.innerHTML = ''
     const list = this.listManager.lists[this.listManager.getListIndex(listId)]
@@ -89,14 +80,14 @@ class UIManager {
     })
     this.itemInput.value = ''
   }
-
+  
   highlightSelected(ele) {
     this.lists.querySelectorAll('li > p').forEach(p => {
       p.classList.remove('selected')
     })
     ele.classList.add('selected')
   }
-
+  
   disableItemInput() {
     if (this.listLength === 0) {
       this.itemInput.setAttribute('disabled', '')
@@ -108,33 +99,63 @@ class UIManager {
     this.itemInput.removeAttribute('disabled')
     this.addItemBtn.removeAttribute('disabled')
   }
-
+  
   listListener(ele, listId) {
     ele.addEventListener("click", () => {
       this.displayItems(listId)
-      this.removeAllClickListeners(this.addItemBtn)
+      this.removeAllListeners(this.addItemBtn)
+      this.removeAllListeners(this.itemInput)
       this.addItemBtnListener(listId)
       this.highlightSelected(ele, listId)
       this.listManager.toggleListSelected(listId)
     })
   }
+  
+  addItem(listId) {
+    this.listManager.addItemToList(listId, this.itemInput.value)
+    this.#insertHTMLBeforeEnd(this.itemTemplate, this.items)
+    this.itemInput.value = ''
+    const li = this.items.lastElementChild
+    this.removeItemBtnListener(li, listId)
+  }
+
+  addItemBtnListener(listId) {
+    this.addItemBtn.addEventListener("click", () => {
+      this.addItem(listId)
+    })
+
+    this.itemInput.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") {
+        this.addItem(listId)
+      }
+    })
+  } 
+
+  addList() {
+    this.#insertHTMLBeforeEnd(this.listTemplate, this.lists)
+    this.listManager.createList(this.listInput.value, false)
+    const list = this.listManager.lists[this.listManager.lists.length - 1]
+    this.listInput.value = ''
+    const li = this.lists.lastElementChild
+    this.removeListBtnListener(li, list.id)
+    this.displayItems(list.id)
+    this.removeAllListeners(this.addItemBtn)
+    this.removeAllListeners(this.itemInput)
+    this.addItemBtnListener(list.id)
+    
+    const listNameEle = this.lists.lastElementChild.querySelector("p")
+    this.listListener(listNameEle, list.id)
+    this.highlightSelected(listNameEle)
+    this.enableItemInput()
+    this.listManager.toggleListSelected(list.id)
+  }
 
   addListBtnListener() {
-    this.addListBtn.addEventListener("click", () => {
-      this.#insertHTMLBeforeEnd(this.listTemplate, this.lists)
-      this.listManager.createList(this.listInput.value, false)
-      const list = this.listManager.lists[this.listManager.lists.length - 1]
-      this.listInput.value = ''
-      const li = this.lists.lastElementChild
-      this.removeListBtnListener(li, list.id)
-      this.displayItems(list.id)
-      this.removeAllClickListeners(this.addItemBtn)
-      this.addItemBtnListener(list.id)
-      
-      const listNameEle = this.lists.lastElementChild.querySelector("p")
-      this.listListener(listNameEle, list.id)
-      this.highlightSelected(listNameEle)
-      this.enableItemInput()
+    this.addListBtn.addEventListener("click", this.addList.bind(this))
+    this.listInput.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") {
+        this.addList()
+      }
     })
   }
 
@@ -156,14 +177,16 @@ class UIManager {
 
     const lastSelected = storedLists.filter(list => list.selected === true)[0]
     this.displayItems(lastSelected.id)
-    this.removeAllClickListeners(this.addItemBtn)
+    this.removeAllListeners(this.addItemBtn)
+    this.removeAllListeners(this.itemInput)
     this.addItemBtnListener(lastSelected.id)
   }
 
-  removeAllClickListeners(button) {
-    const clone = button.cloneNode(true)
-    button.parentNode.replaceChild(clone, button)
+  removeAllListeners(element) {
+    const clone = element.cloneNode(true)
+    element.parentNode.replaceChild(clone, element)
     this.addItemBtn = document.getElementById("add-item")
+    this.itemInput = document.getElementById("new-item-text")
   }
 
 }
