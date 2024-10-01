@@ -1,4 +1,5 @@
 import ListManager from "./list-manager.js"
+import { format } from 'date-fns'
 
 class UIManager {
   constructor(listManager) {
@@ -25,13 +26,14 @@ class UIManager {
 
   get itemTemplate() {
     if (this.itemInput.value === '') this.itemInput.value = "Untitled"
+
     return `
       <li>
         <label>
           <input type="checkbox" class="check" name="check">
           <p>${this.itemInput.value}</p>
         </label>
-        <time datetime="">123</time>
+        <time></time>
         <button class="remove">X</button>
       </li>
       `
@@ -110,11 +112,28 @@ class UIManager {
       this.listManager.toggleListSelected(listId)
     })
   }
-  
+
+  addTime(element, date) {
+    element.setAttribute("datetime", date)
+    element.textContent = format(date, "PP | p")
+  }
+
   addItem(listId) {
     this.listManager.addItemToList(listId, this.itemInput.value)
     this.#insertHTMLBeforeEnd(this.itemTemplate, this.items)
     this.itemInput.value = ''
+    
+    const listIdx = this.listManager.getListIndex(listId)
+    const list = this.listManager.lists[listIdx]
+    console.log(list)
+    const item = list.items[list.items.length - 1]
+    console.log(item)
+    const date = item.date
+    console.log(date)
+
+    const time = this.items.lastElementChild.querySelector("time")
+    this.addTime(time, date)
+
     const li = this.items.lastElementChild
     this.removeItemBtnListener(li, listId)
   }
@@ -188,7 +207,6 @@ class UIManager {
     this.addItemBtn = document.getElementById("add-item")
     this.itemInput = document.getElementById("new-item-text")
   }
-
 }
 
 export default function uiManager() {
