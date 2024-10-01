@@ -70,18 +70,6 @@ class UIManager {
   }
 
   
-  displayItems(listId) {
-    this.items.innerHTML = ''
-    const list = this.listManager.lists[this.listManager.getListIndex(listId)]
-    list.items.forEach(item => {
-      this.itemInput.value = item.toDo
-      this.#insertHTMLBeforeEnd(this.itemTemplate, this.items)
-      this.itemInput.value = ''
-      const li = this.items.lastElementChild
-      this.removeItemBtnListener(li, listId)
-    })
-    this.itemInput.value = ''
-  }
   
   highlightSelected(ele) {
     this.lists.querySelectorAll('li > p').forEach(p => {
@@ -112,12 +100,30 @@ class UIManager {
       this.listManager.toggleListSelected(listId)
     })
   }
+  
+  displayItems(listId) {
+    this.items.innerHTML = ''
+    const list = this.listManager.lists[this.listManager.getListIndex(listId)]
+    list.items.forEach(item => {
+      this.itemInput.value = item.toDo
+      this.#insertHTMLBeforeEnd(this.itemTemplate, this.items)
+      this.itemInput.value = ''
+
+      const date = item.date
+      const time = this.items.lastElementChild.querySelector("time")
+      this.addTime(time, date)  
+
+      const li = this.items.lastElementChild
+      this.removeItemBtnListener(li, listId)
+    })
+    this.itemInput.value = ''
+  }
 
   addTime(element, date) {
     element.setAttribute("datetime", date)
     element.textContent = format(date, "PP | p")
   }
-
+  
   addItem(listId) {
     this.listManager.addItemToList(listId, this.itemInput.value)
     this.#insertHTMLBeforeEnd(this.itemTemplate, this.items)
@@ -125,12 +131,8 @@ class UIManager {
     
     const listIdx = this.listManager.getListIndex(listId)
     const list = this.listManager.lists[listIdx]
-    console.log(list)
     const item = list.items[list.items.length - 1]
-    console.log(item)
     const date = item.date
-    console.log(date)
-
     const time = this.items.lastElementChild.querySelector("time")
     this.addTime(time, date)
 
