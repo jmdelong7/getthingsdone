@@ -9,16 +9,22 @@
 <body class="bg-secondary text-primary">
   <div class="bg-primary main-section">
     <div id="list-sidebar">
-      <ul role="list" id="lists"></ul>
-      <button id="add-list" type="button">Add List</button>
-      <label><input id="new-list-text" type="text" name="list"></label>
+      <section id="lists-section">
+        <ul role="list" id="lists"></ul>
+      </section>
+      <div class="add-lists">
+        <button id="add-list" type="button">Add List</button>
+        <label><input id="new-list-text" type="text" name="list" placeholder="Add List"></label>
+      </div>
     </div>
-    <div class="items-container">
+    <div id="items-container">
       <section id="items-section">
         <ul role="list" id="items"></ul>
       </section>
-      <button id="add-item" type="button">Add Item</button>
-      <label><input id="new-item-text" type="text" name="item"></label>
+      <div class="add-items">
+        <button id="add-item" type="button">Add Item</button>
+        <label><input id="new-item-text" type="text" name="item" placeholder="Add Item"></label>
+      </div>
     </div>
 
   </div>

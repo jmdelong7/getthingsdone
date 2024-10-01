@@ -58,6 +58,7 @@ class UIManager {
       if (this.listManager.lists.length === 0) {
         this.disableItemInput()
       }
+      this.selectNextList()
     })
   }
 
@@ -68,8 +69,6 @@ class UIManager {
       this.listManager.removeItemFromList(listId, itemId)
     })
   }
-
-  
   
   highlightSelected(ele) {
     this.lists.querySelectorAll('li > p').forEach(p => {
@@ -151,6 +150,20 @@ class UIManager {
       }
     })
   } 
+
+  selectNextList() {
+    const listLength = this.listManager.lists.length
+    if (listLength === 0) return
+    const newList = this.listManager.lists[listLength - 1]
+
+    const listNameEle = this.lists.lastElementChild.querySelector("p")
+    this.displayItems(newList.id)
+    this.removeAllListeners(this.addItemBtn)
+    this.removeAllListeners(this.itemInput)
+    this.addItemBtnListener(newList.id)
+    this.highlightSelected(listNameEle, newList.id)
+    this.listManager.toggleListSelected(newList.id)
+  }
 
   addList() {
     this.#insertHTMLBeforeEnd(this.listTemplate, this.lists)

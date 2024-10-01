@@ -157,6 +157,7 @@ svg {
   height: 700px;
   margin: 24px auto;
   display: flex;
+  justify-content: space-between;
 }
 
 body {
@@ -165,6 +166,20 @@ body {
 }
 
 /* More specific */
+
+/* #list-sidebar, 
+#items-container {
+  border: 1px solid orange;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+} */
+
+#items-container {
+  width: 75%
+}
+
+.main-section
 
 li * {
   display: inline-block;
@@ -180,4 +195,8 @@ input[type="checkbox"]:checked + p {
 
 #lists > li > p {
   cursor: pointer;
+}
+
+time {
+  font-size: var(--fs-300);
 }
