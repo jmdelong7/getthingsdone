@@ -1,0 +1,298 @@
+@font-face {
+  font-family: "Roboto";
+  src: 
+    local("Roboto-Thin"),
+    url(a4d410dfda20e10f3aed.ttf);
+  font-weight: 100;
+}
+
+@font-face {
+  font-family: "Roboto";
+  src: 
+    local("Roboto-Regular"),
+    url(27f62b53b93858475a7f.ttf);
+  font-weight: 400;
+}
+
+/* 
+https://piccalil.li/blog/a-modern-css-reset 
+Has some changes by Kevin Powell, taken from:
+https://github.com/kevin-powell/fem-manage-landing-page-part-1/blob/master/style.css#L44
+https://www.youtube.com/watch?v=h3bTwCqX4ns&ab_channel=KevinPowell
+*/
+
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Remove default margin */
+* {
+  margin: 0;
+  padding: 0;
+  font: inherit;
+}
+
+/* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
+ul[role="list"],
+ol[role="list"] {
+  list-style: none;
+}
+
+/* Set core root defaults */
+html:focus-within {
+  scroll-behavior: smooth;
+}
+
+html,
+body {
+  height: 100%;
+  font-size: 62.5%;
+}
+
+/* Set core body defaults */
+body {
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+}
+
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+}
+
+/* Make images easier to work with */
+img,
+picture,
+svg {
+  max-width: 100%;
+  display: block;
+}
+
+/* Remove all animations, transitions and smooth scroll for people that prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* My styling */
+
+:root {
+  /* Background colors */
+  --clr-bg-900: #1a1a1a;
+  --clr-bg-700: #2c2c2c;
+
+  /* Text colors */
+  --clr-text-100: #e0e0e0;
+  --clr-text-400: #787878;
+
+  /* Accent colors */
+  --clr-accent-green: #00b894;
+  --clr-accent-yellow: #fdcb6e;
+  --clr-accent-purple: #a29bfe;
+  --clr-accent-pink: #ff7675;
+
+  /* Fonts */
+  --ff-primary: "Roboto", sans-serif;
+  --fw-thin: 100;
+  --fw-regular: 400;
+
+  --fs-300: 1.4rem;
+  --fs-400: 1.6rem;
+  --fs-600: 2.4rem;
+}
+
+/* Utility classes */
+
+.bg-primary {
+  background-color: var(--clr-bg-700);
+}
+
+.bg-secondary {
+  background-color: var(--clr-bg-900);
+}
+
+.text-primary {
+  color: var(--clr-text-100);
+}
+
+.text-secondary {
+  color: var(--clr-text-400);
+}
+
+.fw-thin {
+  font-weight: var(--fw-thin);
+}
+
+.fw-regular {
+  font-weight: var(--fw-regular)
+}
+
+.fs-300 {
+  font-size: var(--fs-300);
+}
+
+.fs-400 {
+  font-size: var(--fs-400);
+}
+
+.fs-600 {
+  font-size: var(--fs-600);
+}
+
+.main-section {
+  width: 700px;
+  height: 700px;
+  margin: 24px auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+body {
+  font-size: var(--fs-400);
+  font-family: var(--ff-primary);
+}
+
+/* More specific */
+
+#list-sidebar, 
+#items-container {
+  border: 1px solid orange;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+#items-container {
+  width: 75%
+}
+
+#lists-section,
+#items-section {
+  margin: 10px;
+}
+
+#lists,
+#items {
+  display: flex;
+  flex-direction: column;
+  gap: 10px
+}
+
+#lists > li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.remove {
+  font-size: var(--fs-300);
+  font-weight: var(--fw-thin);
+  padding: 1px 8px 2px 8px;
+  border: 1px solid var(--clr-text-400);
+  background-color: transparent;
+  border-radius: 50px;
+  color: var(--clr-text-100);
+  flex-shrink: 0;
+}
+
+.remove:hover {
+  background-color: var(--clr-bg-900);
+  cursor: pointer;
+}
+
+#items > li {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+#add-list,
+#add-item {
+  font-size: var(--fs-600);
+  font-weight: var(--fw-thin);
+  padding: 0 11px;
+  border: 1px solid var(--clr-accent-green);
+  background-color: transparent;
+  border-radius: 50px;
+  color: var(--clr-text-100);
+  margin: 0 10px 10px 10px;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+#add-item:disabled {
+  cursor: default;
+}
+
+.add-lists,
+.add-items {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.add-lists label, 
+.add-items label {
+  flex-grow: 1;
+  display: flex;
+}
+
+input[type="text"] {
+  border: none;
+  background-color: var(--clr-bg-900);
+  color: var(--clr-text-100);
+  font-weight: var(--fw-thin);
+  border-radius: 10px;
+  padding: 10px;
+  margin: 0 10px 10px 0;
+  width: 100%;
+}
+
+li * {
+  display: inline-block;
+  font-weight: var(--fw-thin);
+}
+
+input[type="checkbox"]:checked + p {
+  color: var(--clr-text-400)
+}
+
+.parent-selected {
+  border-left: 3px solid var(--clr-accent-purple);
+  padding-left: 10px;
+  border-radius: 3px;
+}
+
+#lists > li > p {
+  cursor: pointer;
+}
+
+time {
+  font-size: var(--fs-300);
+  color: var(--clr-text-400)
+}
+
+.warning::placeholder {
+  color: var(--clr-accent-pink);
+  font-weight: var(--fw-regular);
+}
+
+input[type="checkbox"] {
+  border: none;
+  background-color: var(--clr-accent-green);
+}
+
+/*# sourceMappingURL=app.css.map*/
