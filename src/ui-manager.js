@@ -19,7 +19,7 @@ class UIManager {
     return `
       <li>
         <p>${this.listInput.value}</p>
-        <button class="remove">X</button>
+        <button class="remove">x</button>
       </li>
       `
   }
@@ -34,7 +34,7 @@ class UIManager {
           <p>${this.itemInput.value}</p>
         </label>
         <time></time>
-        <button class="remove">X</button>
+        <button class="remove">x</button>
       </li>
       `
   }
@@ -59,6 +59,7 @@ class UIManager {
         this.disableItemInput()
       }
       this.selectNextList()
+      this.addListWarning()
     })
   }
 
@@ -75,6 +76,11 @@ class UIManager {
       p.classList.remove('selected')
     })
     ele.classList.add('selected')
+    
+    this.lists.querySelectorAll('li').forEach(li => {
+      li.classList.remove('parent-selected')
+    })
+    ele.parentNode.classList.add('parent-selected')
   }
   
   disableItemInput() {
@@ -87,6 +93,14 @@ class UIManager {
   enableItemInput() {
     this.itemInput.removeAttribute('disabled')
     this.addItemBtn.removeAttribute('disabled')
+  }
+
+  addListWarning() {
+    if (this.listManager.lists.length === 0){
+      this.itemInput.classList.add("warning")
+    } else {
+      this.itemInput.classList.remove("warning")
+    }
   }
   
   listListener(ele, listId) {
@@ -182,9 +196,11 @@ class UIManager {
     this.highlightSelected(listNameEle)
     this.enableItemInput()
     this.listManager.toggleListSelected(list.id)
+    this.addListWarning()
   }
 
   addListBtnListener() {
+    this.addListWarning()
     this.addListBtn.addEventListener("click", this.addList.bind(this))
     this.listInput.addEventListener("keydown", (event) => {
       if (event.key === "Enter") {
